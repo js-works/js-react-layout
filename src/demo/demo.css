@@ -1,7 +1,9 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif
+  max-width: 100%;
+  max-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .with-border {
@@ -34,6 +36,10 @@ body {
 
 .orange-background {
   background-color: orange
+}
+
+.yellow-background {
+  background-color: yellow
 }
 
 .blue-background {

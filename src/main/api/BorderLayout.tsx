@@ -1,18 +1,18 @@
+import Styles from '../internal/types/Styles'
 import React, { CSSProperties, ReactNode } from 'react'
 import { defineComponent, isNode, isElementOfType, withChildren } from 'js-react-utils'
-import { FlexDirectionProperty, PositionProperty } from 'csstype'
 import { Spec } from 'js-spec/dev-only'
 
 type SectorProps = {
   className?: string,
-  style?: CSSProperties, // TODO
+  style?: CSSProperties,
   children?: ReactNode
 }
 
 const
   TopStart = defineSectorComponent('TopStart'),
   TopCenter = defineSectorComponent('TopCenter'),
-  TopEnd = defineSectorComponent('MiddleTopEnd'),
+  TopEnd = defineSectorComponent('TopEnd'),
   MiddleStart = defineSectorComponent('MiddleStart'),
   MiddleCenter = defineSectorComponent('MiddleCenter'),
   MiddleEnd = defineSectorComponent('MiddleEnd'),
@@ -22,54 +22,59 @@ const
 
 type BorderLayoutProps = {
   className?: string,
-  styles?: CSSProperties, // TODO
-  children?: ReactNode // TODO 
+  style?: CSSProperties,
+  children?: ReactNode
 }
 
-const styles = {
+const styles: Styles = {
   borderLayout: {
-    position: 'absolute' as PositionProperty,
+    position: 'absolute', // TODO
     width: '100%',
     height: '100%',
     display: 'flex',
-    flexDirection: 'column' as FlexDirectionProperty,
+    flexDirection: 'column',
   },
 
   top: {
     display: 'flex',
-    flexDirection: 'row' as FlexDirectionProperty,
+    flexDirection: 'row',
     alignItems: 'stretch'
   },
 
   middle: {
-    flexGrow: 1,
-    display: 'flex'as FlexDirectionProperty,
-    flexDiretion: 'row',
+    display: 'flex',
+    flexDirection: 'row',
+    flexGrow: 1
   },
 
   bottom: {
     display: 'flex',
-    flexDirection: 'row' as FlexDirectionProperty,
+    flexDirection: 'row',
   },
 
   topStart: {
   },
 
   topCenter: {
-    flexGrow: 1
+    flexGrow: 1,
   },
 
   topEnd: {
   },
 
   middleStart: {
+    display: 'flex',
+    flexGrow: 0
   },
 
   middleCenter: {
-    flexGrow: 1,
+    display: 'flex',
+    flexGrow: 1
   },
 
   middleEnd: {
+    display: 'flex',
+    flexGrow: 0
   },
 
   bottomStart: {
@@ -109,7 +114,7 @@ const BorderLayout = defineComponent<BorderLayoutProps>({
     }
   },
 
-  render: ({ children }) => {
+  render: ({ className, style, children }) => {
     let
       topStart: ReactNode = null,
       topCenter: ReactNode  = null,
@@ -151,64 +156,48 @@ const BorderLayout = defineComponent<BorderLayoutProps>({
     })
 
     return (
-      <div style={styles.borderLayout}>
-        { (topStart || topCenter || topEnd) && (
-          <div style={styles.top}>
-            { topStart && (
+      <div data-component="BorderLayout" className={className} style={style}>
+        <div style={styles.borderLayout}>
+          { (topStart || topCenter || topEnd) && (
+            <div style={styles.top}>
               <div data-sector="top-start" style={styles.topStart}>
                 {topStart}
-              </div>)
-            }
-            { topCenter && (
+              </div>
               <div data-sector="top-center" style={styles.topCenter}>
                 {topCenter}
-              </div>)
-            }
-            { topEnd && (
+              </div>
               <div data-sector="top-end" style={styles.topEnd}>
                 {topEnd}
-              </div>)
-            }
-          </div>)
-        }
-        { (middleStart || middleCenter || middleEnd) && (
-          <div style={styles.middle}>
-            { middleStart && (
+              </div>
+            </div>)
+          }
+          { (middleStart || middleCenter || middleEnd) && (
+            <div style={styles.middle}>
               <div data-sector="middle-start" style={styles.middleStart}>
                 {middleStart}
-              </div>)
-            }
-            { middleCenter && (
+              </div>
               <div data-sector="middle-center" style={styles.middleCenter}>
                 {middleCenter}
-              </div>)
-            }
-            { middleEnd && (
+              </div>
               <div data-sector="middle-end" style={styles.middleEnd}>
                 {middleEnd}
-              </div>)
-            }
-          </div>)
-        }
-        { (bottomStart || bottomCenter || bottomEnd) && (
-          <div style={styles.bottom}>
-            { bottomStart && (
+              </div>
+            </div>)
+          }
+          { (bottomStart || bottomCenter || bottomEnd) && (
+            <div style={styles.bottom}>
               <div data-sector="bottom-start" style={styles.bottomStart}>
                 {bottomStart}
-              </div>)
-            }
-            { bottomCenter && (
+              </div>
               <div data-sector="bottom-center" style={styles.bottomCenter}>
                 {bottomCenter}
-              </div>)
-            }
-            { bottomEnd && (
+              </div>
               <div data-sector="bottom-end" style={styles.bottomEnd}>
                 {bottomEnd}
-              </div>)
-            }
-          </div>)
-        }
+              </div>
+            </div>)
+          }
+        </div>
       </div>
     )
   }
