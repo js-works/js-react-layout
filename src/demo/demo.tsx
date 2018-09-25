@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { defineComponent } from 'js-react-utils'
 import { Spec } from 'js-spec' // 3rd-party validation library
-import { BorderLayout, HBox } from '../main/js-react-layout'
+import { BorderLayout, HBox, VBox } from '../main/js-react-layout'
 
 const Demo = defineComponent({
   displayName: 'Demo',
@@ -24,7 +24,7 @@ const Demo = defineComponent({
               Cell 1<br/>
               Cell 1<br/>
             </HBox.Cell>
-            <HBox.Cell stretch={2} className="orange-background" verticalAlign="bottom" horizontalAlign="end">
+            <HBox.Cell grow={2} className="orange-background" verticalAlign="bottom" horizontalAlign="end">
               Cell 2
             </HBox.Cell>
             <HBox.Cell className="yellow-background">
@@ -34,6 +34,17 @@ const Demo = defineComponent({
               Cell 4
             </HBox.Cell>
           </HBox>
+          <VBox style={{ width: '200px', height: '100px', border: '1px solid gray', display: 'inline-block' }}>
+            <VBox.Cell grow={1} horizontalAlign="start" verticalAlign="bottom">
+              xxx
+            </VBox.Cell>
+            <VBox.Cell grow={1} horizontalAlign="end" verticalAlign="bottom">
+               yyy 
+            </VBox.Cell>
+            <VBox.Cell>
+               zzz 
+            </VBox.Cell>
+          </VBox>
         </BorderLayout.MiddleCenter>
         <BorderLayout.MiddleEnd className="black-color red-background with-padding">
           This is east 

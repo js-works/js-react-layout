@@ -3,15 +3,9 @@ import React, { CSSProperties, ReactNode } from 'react'
 import { defineComponent, isElementOfType, isNode, withChildren } from 'js-react-utils'
 import { Spec  } from 'js-spec/dev-only'
 
-const styles: Styles = {
-  container: {
-    display: 'flex',
-    alignItems: 'stretch',
-  }
-}
-
 type CellProps = {
-  stretch?: number,
+  grow?: number,
+  shrink?: number,
   horizontalAlign?: 'start' | 'center' | 'end',
   verticalAlign?: 'top' | 'middle' | 'bottom',
   className?: string,
@@ -23,7 +17,13 @@ const Cell = defineComponent<CellProps>({
   displayName: 'HBox.Cell',
 
   properties: {
-    stretch: {
+    grow: {
+      type: Number,
+      optional: true,
+      validate: Spec.nonnegativeFloat
+    },
+    
+    shrink: {
       type: Number,
       optional: true,
       validate: Spec.nonnegativeFloat
@@ -59,7 +59,7 @@ const Cell = defineComponent<CellProps>({
 
   render() {
     throw new Error('Components of type HBox.Cell can only '
-    + 'be used as direct children of HBox components')
+      + 'be used as direct children of HBox components')
   }
 })
 
@@ -111,9 +111,9 @@ const HBox = defineComponent<HBoxProps>({
                 : 'center'
 
           return (
-            <div data-component="HBox.Cell" style={{ flexGrow: props.stretch }}>
-              <div style={{ ...props.style, height: '100%', xwidth: '100%', display: 'flex', alignItems, justifyContent }} className={props.className}>
-                <div style={{ border: '1px solid black' }}>
+            <div data-component="HBox.Cell" style={{ flexGrow: props.grow, flexShrink: props.shrink }}>
+              <div style={{ ...props.style, height: '100%', display: 'flex', alignItems, justifyContent }} className={props.className}>
+                <div>
                   {props.children}
                 </div>
               </div>
@@ -122,7 +122,7 @@ const HBox = defineComponent<HBoxProps>({
         }),
 
       container: ReactNode =
-        <div style={styles.container}>
+        <div style={{ display: 'flex' }}>
           {cells}
         </div>
 
