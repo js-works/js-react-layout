@@ -9,6 +9,24 @@ type SectorProps = {
   children?: ReactNode
 }
 
+const sectorPropsConfig = {
+  className: {
+    type: String,
+    optional: true
+  },
+
+  style: {
+    type: Object,
+    optional: true
+  },
+
+  children: {
+    validate: withChildren(Spec.all(isNode)),
+    optional: true
+  }
+}
+
+
 const
   TopStart = defineSectorComponent('TopStart'),
   TopCenter = defineSectorComponent('TopCenter'),
@@ -95,7 +113,7 @@ const BorderLayout = defineComponent<BorderLayoutProps>({
     children: {
       optional: true,
       
-      validate: withChildren(isElementOfType([
+      validate: withChildren(Spec.all(isElementOfType([
         TopStart,
         TopCenter,
         TopEnd,
@@ -105,7 +123,7 @@ const BorderLayout = defineComponent<BorderLayoutProps>({
         BottomStart,
         BottomCenter,
         BottomEnd
-      ])),
+      ]))),
     }
   },
 
@@ -124,8 +142,15 @@ const BorderLayout = defineComponent<BorderLayoutProps>({
     React.Children.forEach(children, sector => {
       const { type, props } = sector as any 
 
+      let style = props.style
+
+      if (type === MiddleCenter) {
+        style = props.style ? { ...props.style } : {}
+        style.height = '100%'
+      }
+
       const content =
-        <div className={props.className} style={props.style}>
+        <div className={props.className} style={style}>
           {props.children}
         </div>
 
@@ -214,27 +239,10 @@ Object.freeze(BorderLayout)
 
 // ------------------------------------------------------------------
 
-const sectorProperties = {
-  className: {
-    type: String,
-    optional: true
-  },
-
-  style: {
-    type: Object,
-    optional: true
-  },
-
-  children: {
-    validate: withChildren(Spec.all(isNode)),
-    optional: true
-  }
-}
-
 function defineSectorComponent(displayName: string) {
   return defineComponent<SectorProps>({
     displayName,
-    properties: sectorProperties,
+    properties: sectorPropsConfig,
 
     render() {
       throw new Error(`Components of type BorderLayout.${displayName} `

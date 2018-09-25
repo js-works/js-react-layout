@@ -16,16 +16,22 @@ const Demo = defineComponent({
         <BorderLayout.MiddleStart className="black-color red-background with-padding">
           This is west 
         </BorderLayout.MiddleStart>
-        <BorderLayout.MiddleCenter className="black-color green-background with-padding">
+        <BorderLayout.MiddleCenter className="black-color cyan-background with-padding">
           <HBox>
             <HBox.Cell className="yellow-background">
-              Cell 1
+              Cell 1<br/>
+              Cell 1<br/>
+              Cell 1<br/>
+              Cell 1<br/>
             </HBox.Cell>
-            <HBox.Cell stretch={2} className="orange-background">
+            <HBox.Cell stretch={2} className="orange-background" verticalAlign="bottom" horizontalAlign="end">
               Cell 2
             </HBox.Cell>
             <HBox.Cell className="yellow-background">
               Cell 3
+            </HBox.Cell>
+            <HBox.Cell className="orange-background" verticalAlign="top">
+              Cell 4
             </HBox.Cell>
           </HBox>
         </BorderLayout.MiddleCenter>

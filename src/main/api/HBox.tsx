@@ -5,16 +5,15 @@ import { Spec  } from 'js-spec/dev-only'
 
 const styles: Styles = {
   container: {
-    display: 'inline-flex',
-    flexFlow: 'row nowrap',
-  },
-
-  cell: {
+    display: 'flex',
+    alignItems: 'stretch',
   }
 }
 
 type CellProps = {
   stretch?: number,
+  horizontalAlign?: 'start' | 'center' | 'end',
+  verticalAlign?: 'top' | 'middle' | 'bottom',
   className?: string,
   style?: CSSProperties,
   children?: ReactNode
@@ -28,6 +27,18 @@ const Cell = defineComponent<CellProps>({
       type: Number,
       optional: true,
       validate: Spec.nonnegativeFloat
+    },
+
+    horizontalAlign: {
+      type: String,
+      optional: true,
+      validate: Spec.oneOf('start', 'center', 'end'),
+    },
+
+    verticalAlign: {
+      type: String,
+      optional: true,
+      validate: Spec.oneOf('top', 'middle', 'bottom'),
     },
 
     className: {
@@ -78,16 +89,33 @@ const HBox = defineComponent<HBoxProps>({
     }
   },
 
-  render({ className, style, children }) {
+  render({ className, style, children }: HBoxProps) {
     const
       cells =
         React.Children.map(children, child => {
-          const { props } = child as any 
+          const
+            { props } = child as any,
+            
+            justifyContent =
+              props.horizontalAlign === 'start'
+                ? 'flex-start'
+                : props.horizontalAlign === 'end'
+                ? 'flex-end'
+                : 'center',
+
+            alignItems =
+              props.verticalAlign === 'top'
+                ? 'flex-start'
+                : props.verticalAlign === 'bottom'
+                ? 'flex-end'
+                : 'center'
 
           return (
-            <div data-component="HBox.Cell" style={{ flex: `${props.stretch || 1 } 1` }}>
-              <div className={props.className} style={props.style}>
-                { props.children }
+            <div data-component="HBox.Cell" style={{ flexGrow: props.stretch }}>
+              <div style={{ ...props.style, height: '100%', xwidth: '100%', display: 'flex', alignItems, justifyContent }} className={props.className}>
+                <div style={{ border: '1px solid black' }}>
+                  {props.children}
+                </div>
               </div>
             </div>
           )

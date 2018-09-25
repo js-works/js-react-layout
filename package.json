@@ -58,8 +58,7 @@
     "ziptool": "^1.0.2"
   },
   "dependencies": {
-    "js-react-utils": "0.0.5",
-    "jss": "^9.8.7",
+    "js-react-utils": "^0.0.11",
     "react": "^16.4.2"
   },
   "scripts": {
