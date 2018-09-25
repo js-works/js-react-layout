@@ -29,27 +29,23 @@ type BorderLayoutProps = {
 const styles: Styles = {
   borderLayout: {
     position: 'absolute', // TODO
-    width: '100%',
-    height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    width: '100%',
+    height: '100%',
   },
 
   top: {
     display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'stretch'
   },
 
   middle: {
     display: 'flex',
-    flexDirection: 'row',
-    flexGrow: 1
+    flex: 1
   },
 
   bottom: {
     display: 'flex',
-    flexDirection: 'row',
   },
 
   topStart: {
@@ -64,24 +60,23 @@ const styles: Styles = {
 
   middleStart: {
     display: 'flex',
-    flexGrow: 0
   },
 
   middleCenter: {
     display: 'flex',
-    flexGrow: 1
+    flexDirection: 'column',
+    flex: 1
   },
 
   middleEnd: {
     display: 'flex',
-    flexGrow: 0
   },
 
   bottomStart: {
   },
 
   bottomCenter: {
-    flexGrow: 1
+    flex: 1
   },
 
   bottomEnd: {

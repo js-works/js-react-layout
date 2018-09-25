@@ -16,7 +16,7 @@ const Demo = defineComponent({
         <BorderLayout.MiddleStart className="black-color red-background with-padding">
           This is west 
         </BorderLayout.MiddleStart>
-        <BorderLayout.MiddleCenter className="black-color green-background with-padding" style={{ width: '100%', border: '2px solid purple' }}>
+        <BorderLayout.MiddleCenter className="black-color green-background with-padding">
           <HBox>
             <HBox.Cell className="yellow-background">
               Cell 1
