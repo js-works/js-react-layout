@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { defineComponent } from 'js-react-utils'
 import { Spec } from 'js-spec' // 3rd-party validation library
-import { BorderLayout, HBox, VBox } from '../main/js-react-layout'
+import { BorderLayout, HBox, VBox } from '../main/js-react-layouts'
 
 const Demo = defineComponent({
   displayName: 'Demo',

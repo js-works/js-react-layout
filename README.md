@@ -1,4 +1,4 @@
-# js-react-layout
+# js-react-layouts
 
 Small library with some React layout components
 

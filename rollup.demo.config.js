@@ -46,7 +46,7 @@ export default {
       },
     }),
     replace({
-//      exclude: 'node_modules/**', // TODO
+      // exclude: 'node_modules/**', // TODO
       
       values: {
         'process.env.NODE_ENV': "'development'"

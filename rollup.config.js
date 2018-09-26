@@ -8,15 +8,15 @@ import gzip from 'rollup-plugin-gzip'
 
 function createRollupConfig(moduleFormat, productive) {
   return {
-    input: 'src/main/js-react-layout.ts',
+    input: 'src/main/js-react-layouts.ts',
 
     output: {
       file: productive
-        ? `dist/js-react-layout.${moduleFormat}.production.js`
-        : `dist/js-react-layout.${moduleFormat}.development.js`,
+        ? `dist/js-react-layouts.${moduleFormat}.production.js`
+        : `dist/js-react-layouts.${moduleFormat}.development.js`,
 
       format: moduleFormat,
-      name: 'jsReactLayout', 
+      name: 'jsReactLayouts', 
       sourcemap: productive ? false : 'inline',
 
       globals: {
@@ -34,7 +34,22 @@ function createRollupConfig(moduleFormat, productive) {
         main: true,
         browser: true,
       }),
-      commonjs(),
+      commonjs({
+        include: 'node_modules/**',
+
+        namedExports: {
+          'js-react-utils': [
+            'defineComponent',
+            'defineContext',
+            'isElementOfType',
+            'isNode',
+            'withChildren'
+          ],
+          'js-spec/dev-only': [
+            'Spec'
+          ]
+        },
+      }),
       typescript({
         exclude: 'node_modules/**'
       }),
