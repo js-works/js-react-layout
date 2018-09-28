@@ -11,21 +11,17 @@ type SectorProps = {
 
 const sectorPropsConfig = {
   className: {
-    type: String,
-    optional: true
+    type: String
   },
 
   style: {
-    type: Object,
-    optional: true
+    type: Object
   },
 
   children: {
-    validate: withChildren(Spec.all(isNode)),
-    optional: true
+    validate: withChildren(Spec.all(isNode))
   }
 }
-
 
 const
   TopStart = defineSectorComponent('TopStart'),
@@ -106,13 +102,14 @@ const BorderLayout = defineComponent<BorderLayoutProps>({
 
   properties: {
     className: {
-      type: String,
-      optional: true
+      type: String
+    },
+
+    style: {
+      type: Object
     },
 
     children: {
-      optional: true,
-      
       validate: withChildren(Spec.all(isElementOfType([
         TopStart,
         TopCenter,
